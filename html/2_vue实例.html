@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Vue实例</title>
+		<script src="../js/vue.js"></script>
+	</head>
+
+	<body>
+		<div id="app">
+			<p>{{a}}</p>
+		</div>
+		<script>
+			var data = {
+				a: 1
+			};
+
+			//每个应用都是通过Vue函数创建一个新的Vue实例开始的
+			var vm = new Vue({
+				data: data
+			});
+
+			//获得这个实例上的属性
+			document.writeln((vm.a == data.a) + "<br/>"); //true
+
+			//设置属性也会影响到原有数据
+			vm.a = 2;
+			document.writeln(data.a + "<br/>");
+
+			//反过来也一样
+			data.a = 3;
+			document.writeln(vm.a + "<br/>");
+
+			//访问Vue实例的实例属性和方法,它们都带有前缀$,以方便区分
+			var app = new Vue({
+				el: '#app',
+				data: data
+			});
+
+			//访问实例属性
+			document.writeln((app.$data === data) + "<br/>"); //true
+			document.writeln((app.$el === document.getElementById("app"))); //true
+
+			//$watch是一个实例方法
+			vm.$watch('a', function(newValue, oldValue) {
+				alert('值发生变化,新值为:' + newValue);
+			});
+
+			/**
+			 * 实例声明周期钩子，每个Vue实例在被创建时都会经过一系列的初始化过程，比如设置数据监听，将实例挂载到DOM并在数据变化时
+			 * 更新DOM等。在这个过程也会运行一些叫做生命周期钩子的函数，比如
+			 */
+			var app2 = new Vue({
+				data: {
+					message: 1
+				},
+				created: function() {
+					//this指向vue实例
+					console.log('message is:' + this.message);
+				}
+			});
+			
+			
+		</script>
+	</body>
+
+</html>

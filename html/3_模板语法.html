@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>模板语法</title>
+		<script src="../js/vue.js"></script>
+	</head>
+
+	<body>
+		<div id="app">
+			<span v-once>{{message}}</span>
+		</div>
+
+		<div id="app2">
+			<p>Using mustaches: {{rawHtml}}</p>
+			<p>Using v-html directive: <span v-html="rawHtml"></span></p>
+		</div>
+
+		<div id="app3">
+			<button v-bind:disabled="isButtonDisabled">按钮</button>
+		</div>
+
+		<!-- 使用JavaScript表达式 -->
+		<div id="app4">
+			<p>{{number+1}}</p>
+			<p>{{ok ? 'yes':'no'}}</p>
+			<p>{{message.split('').reverse().join('')}}</p>
+		</div>
+
+		<!-- 
+			v-bind缩写：<a :href="url">...</a>
+		 -->
+		<div id="app5">
+			<a v-bind:href="url">这是一个url</a>
+		</div>
+
+		<!-- 
+			v-on:click缩写：<a @click="doSomething">...</a>
+		 -->
+		<script>
+			// Vue.js使用了基于HTML的模板语法，允许开发者声明地将DOM绑定至底层Vue实例的数据。
+			var app = new Vue({
+				el: '#app',
+				data: {
+					message: '只渲染一次'
+				}
+			});
+
+			// 原始html,双花括号会将数据解释为普通文本,而非HTML代码,真正输出html代码,使用v-html
+			var app2 = new Vue({
+				el: '#app2',
+				data: {
+					rawHtml: '<span style="color:red">This should be red.</span>'
+				}
+			});
+
+			// 特性，Mustache语法不能作用在html特性下,遇到这种情况下应该用v-bind指令
+			var app3 = new Vue({
+				el: '#app3',
+				data: {
+					isButtonDisabled: true
+				}
+			})
+
+			// 使用javascript表达式
+			var app4 = new Vue({
+				el: '#app4',
+				data: {
+					number: 1,
+					ok: true,
+					message: 'Hi,Johnathan'
+				}
+			});
+
+			/**
+			 * 指令:带有v-前缀的特殊属性,指令特性的值是单个JavaScript表达式,指令的职责是,当表达式的值改变时,响应式地作用于DOM
+			 */
+			// 参数:一些指令能接收一个参数,在指令名称之后以冒号表示.例如:v-bind指令可以响应式地更新html特性
+			var app5 = new Vue({
+				el: '#app5',
+				data: {
+					url: 'https://www.baidu.com'
+				}
+			})
+		</script>
+
+	</body>
+
+</html>

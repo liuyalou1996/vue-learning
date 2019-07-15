@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>初学Vue.js</title>
+		<script src="../js/vue.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			{{message}}
+		</div>
+
+		<div id="app2">
+			<span v-bind:title="tip">
+				鼠标悬停几秒钟查看此处动态绑定的提示信息！
+			</span>
+		</div>
+
+		<div id="app3">
+			<p v-if="seen">现在你看到我了！</p>
+		</div>
+
+		<div id="app4">
+			<ol>
+				<li v-for="todo in todos">
+					{{todo.text}}
+				</li>
+			</ol>
+		</div>
+
+		<div id="app5">
+			<p>{{message}}</p>
+			<button v-on:click="reverseMessage">点击我反转消息</button>
+		</div>
+
+
+		<div id="app6">
+			<p>{{message}}</p>
+			<input v-model="message" />
+		</div>
+
+		<div id="app7">
+			<ol>
+				<!--给每个todo-item新增了一个变量，同时提供一个key-->
+				<todo-item v-for='item in groceryList' v-bind:todo='item' v-bind:key='item.id'>
+				</todo-item>
+			</ol>
+		</div>
+
+		<script type="text/javascript">
+			var app = new Vue({
+				el: '#app',
+				data: {
+					message: 'Hello Vue!'
+				}
+			});
+
+			var app2 = new Vue({
+				el: '#app2',
+				data: {
+					tip: '页面加载于' + new Date().toLocaleString()
+				}
+			})
+
+			var app3 = new Vue({
+				el: '#app3',
+				data: {
+					seen: true
+				}
+			});
+
+			var app4 = new Vue({
+				el: '#app4',
+				data: {
+					todos: [{
+							text: '学习java项目'
+						},
+						{
+							text: '学习vue'
+						},
+						{
+							text: '整个牛项目'
+						}
+					]
+				}
+			});
+
+			var app5 = new Vue({
+				el: '#app5',
+				data: {
+					message: 'Hello Vue.js!'
+				},
+				methods: {
+					reverseMessage: function() {
+						this.message = this.message.split('').reverse().join('');
+					}
+				}
+			});
+
+			//绑定表单控件
+			var app6 = new Vue({
+				el: '#app6',
+				data: {
+					message: 'Hello Vue!'
+				}
+			});
+
+			//自定义名为todo-item的组件
+			Vue.component('todo-item', {
+				props: ['todo'],
+				template: '<li>{{todo.text}}</li>'
+			});
+
+			var app7 = new Vue({
+				el: '#app7',
+				data: {
+					groceryList: [{
+							id: 0,
+							text: '蔬菜'
+						},
+						{
+							id: 1,
+							text: '奶酪'
+						},
+						{
+							id: 2,
+							text: '芝士'
+						}
+					]
+				}
+			});
+			
+			
+		</script>
+	</body>
+</html>
