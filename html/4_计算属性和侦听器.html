@@ -18,8 +18,12 @@
 		</div>
 
 		<div id="example3">
-			<p>current time is:{{currentTime}}</p>
+			<p>current time is:{{currentTime}}</p5>
 		</div>
+
+		<div id="example4">{{fullName}}</div>
+
+		<div id="example5">{{fullName}}</div>
 	</body>
 
 	<script>
@@ -65,6 +69,50 @@
 
 		//由于计算属性是基于响应式依赖进行缓存的,只有在响应式依赖发生改变时才会重新求值,这里不会变
 		console.log(example3.currentTime);
+
+		//侦听属性,键为要侦听的属性,值为回调函数,通过计算属性更容易做
+		var example4 = new Vue({
+			el: '#example4',
+			data: {
+				firstName: 'Foo',
+				lastName: 'Bar',
+				fullName: 'Foo Bar'
+			},
+			watch: {
+				firstName: function(newValue) {
+					this.fullName = newValue + ' ' + this.lastName;
+				},
+				lastName: function(newValue) {
+					this.fullName = this.firstName + ' ' + newValue;
+				}
+			}
+		});
+
+		// 计算属性的setter,计算属性默认只有getter,同时也可以提供setter
+		var example5 = new Vue({
+			el: '#example5',
+			data: {
+				firstName: 'liu',
+				lastName: 'yalou'
+			},
+			computed: {
+				fullName: {
+					// getter
+					get: function() {
+						return this.firstName + ' ' + this.lastName;
+					},
+					// setter
+					set: function(newValue) {
+						var temp = newValue.split(' ');
+						this.firstName = temp[0];
+						this.lastName = temp[1];
+					}
+				}
+			}
+		});
+
+		//调用setter方法
+		example5.fullName = 'liu qian';
 	</script>
 
 </html>

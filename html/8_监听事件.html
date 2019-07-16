@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>监听事件</title>
+		<script src="../js/vue.js"></script>
+	</head>
+
+	<body>
+		<div id="example">
+			<button v-on:click="count+=1">递增按钮</button>
+			<p>the button has been clicked {{count}} items.</p>
+		</div>
+
+		<div id="example2">
+			<button v-on:click="greet">点击</button>
+		</div>
+
+		<div id="example3">
+			<button v-on:click="say('hi')">say hi</button>
+			<button v-on:click="say('what')">say what</button>
+		</div>
+
+		<!--  -->
+		<div id="example4">
+			<button v-on:click="warn('Form can not be submitted yet.',$event)">submit</button>
+		</div>
+
+		<div id="example5">
+			<!-- 阻止默认事件 -->
+			<a href="https://www.baidu.com" v-on:click.self.prevent>链接</a>
+		</div>
+
+		<!--默认阻止表单提交  -->
+		<div id="example6">
+			<form v-on:submit.prevent="check" action="https://www.baidu.com">
+				<label>姓名：</label><input type="text" />
+				<input type="submit" value="提交" />
+			</form>
+		</div>
+
+		<script>
+			var example = new Vue({
+				el: '#example',
+				data: {
+					count: 0
+				}
+			});
+			//可传入event
+			var example2 = new Vue({
+				el: '#example2',
+				methods: {
+					greet: function(event) {
+						alert('hello bitch!');
+						// 原生DOM事件
+						if (event) {
+							alert(event.target.tagName);
+						}
+					}
+				}
+			});
+
+			// example2.greet();直接调用vue实例的方法
+			var example3 = new Vue({
+				el: '#example3',
+				methods: {
+					say: function(msg) {
+						alert(msg);
+					}
+				}
+			});
+
+			var example4 = new Vue({
+				el: '#example4',
+				methods: {
+					warn: function(msg, event) {
+						if (event) {
+							event.preventDefault();
+						}
+						alert(msg);
+					}
+				}
+			});
+
+			var example5 = new Vue({
+				el: '#example5'
+			});
+
+			var example6 = new Vue({
+				el: '#example6',
+				methods: {
+					check: function() {
+						alert(1);
+					}
+				}
+			});
+		</script>
+	</body>
+</html>

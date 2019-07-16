@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>列表渲染</title>
+		<script src="../js/vue.js"></script>
+	</head>
+
+	<body>
+
+		<ul id="example">
+			<!-- 第二个选项为当前项的索引 -->
+			<li v-for="(item,index) in items">
+				<!-- 访问父作用域的属性 -->
+				{{parentMessage}} - {{index}} - {{item.message}}
+			</li>
+		</ul>
+
+		<!-- 遍历对象属性 -->
+		<ul id="example2">
+			<!-- 第一个属性为对象属性值，第二个属性为属性名，第三个为索引 -->
+			<li v-for="(value,name,index) in object">
+				{{index}}-{{name}}-{{value}}
+			</li>
+		</ul>
+
+		<script>
+			var example = new Vue({
+				el: '#example',
+				data: {
+					parentMessage: 'Parent',
+					items: [{
+							message: 'Hello'
+						},
+						{
+							message: 'Vue'
+						}
+					]
+				}
+			});
+
+			var example2 = new Vue({
+				el: '#example2',
+				data: {
+					object: {
+						title: 'How to do lists in Vue',
+						author: 'Jane Doe',
+						publishedAt: '2016-04-10'
+					}
+				}
+			});
+			
+		</script>
+	</body>
+</html>
