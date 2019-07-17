@@ -26,6 +26,8 @@
 			<button v-on:click="warn('Form can not be submitted yet.',$event)">submit</button>
 		</div>
 
+		<!-- 事件修饰符 -->
+
 		<div id="example5">
 			<!-- 阻止默认事件 -->
 			<a href="https://www.baidu.com" v-on:click.self.prevent>链接</a>
@@ -39,6 +41,22 @@
 			</form>
 		</div>
 
+		<!-- 按键修饰符，按键码已经被弃用 -->
+		<div id="example7">
+			按键修饰符:<input v-on:keypress.enter="submit" />
+		</div>
+
+		<!-- 系统修饰符 -->
+		<div id="example8">
+			按下Alt+C:<input v-on:keypress.alt.c="press" /><br />
+			<!-- 即使Alt+Shift被按下也会触发 -->
+			<button v-on:click.ctrl="doSomething">请按下Ctrl并鼠标点击</button>
+			<!-- 有且只有 Ctrl 被按下的时候才触发 -->
+			<button @click.ctrl.exact="onCtrlClick">只按下Ctrl键才触发</button>
+			<!-- 没有任何系统修饰符被按下的时候才触发 -->
+			<button @click.exact="onClick">只点击才触发</button>
+			<!-- 还有鼠标按钮修饰符 -->
+		</div>
 		<script>
 			var example = new Vue({
 				el: '#example',
@@ -46,6 +64,7 @@
 					count: 0
 				}
 			});
+
 			//可传入event
 			var example2 = new Vue({
 				el: '#example2',
@@ -91,6 +110,33 @@
 				methods: {
 					check: function() {
 						alert(1);
+					}
+				}
+			});
+
+			var example7 = new Vue({
+				el: '#example7',
+				methods: {
+					submit: function() {
+						alert("按下了Enter键");
+					}
+				}
+			});
+
+			var example8 = new Vue({
+				el: '#example8',
+				methods: {
+					press: function() {
+						alert("按下了Alt+C");
+					},
+					doSomething: function() {
+						alert("按下了Ctrl并鼠标单击");
+					},
+					onClick: function() {
+						alert("只点击触发");
+					},
+					onCtrlClick: function() {
+						alert("只按下Ctrl键触发");
 					}
 				}
 			});

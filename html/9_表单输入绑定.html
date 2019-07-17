@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>表单输入绑定</title>
+		<script src="../js/vue.js"></script>
+	</head>
+
+	<body>
+		<!-- 使用v-model指令在表单<input> <textarea> <select>上实现双向绑定 -->
+
+		<!-- 单行文本 -->
+		<div id="app">
+			<input v-model="message" placeholder="edit me" />
+			<p>Message is :{{message}}</p>
+		</div>
+
+		<!-- 多行文本 -->
+		<div id="app2">
+			<span>Multiline message:</span>
+			<p style="white-space: pre-line;">{{message}}</p>
+			<textarea v-model="message" placeholder="add multiple lines"></textarea>
+		</div>
+
+		<!-- 复选框 -->
+		<div id="app3">
+			<input id="checkbox" type="checkbox" v-model="isChecked" />
+			<label for="checkbox">{{isChecked}}</label>
+		</div>
+
+		<!-- 多个复选框绑定到同一个数组  -->
+		<div id="app4">
+			<input type="checkbox" id="jack" value="Jack" v-model="checkedNames">
+			<label for="jack">Jack</label>
+			<input type="checkbox" id="john" value="John" v-model="checkedNames">
+			<label for="john">John</label>
+			<input type="checkbox" id="mike" value="Mike" v-model="checkedNames">
+			<label for="mike">Mike</label>
+			<br>
+			<span>Checked names: {{ checkedNames }}</span>
+		</div>
+
+		<!-- 单选按钮，绑定都是组件的value值 -->
+		<div id="app5">
+			<input type="radio" id="one" value="One" v-model="picked">
+			<label for="one">One</label>
+			<br>
+			<input type="radio" id="two" value="Two" v-model="picked">
+			<label for="two">Two</label>
+			<br>
+			<span>Picked: {{ picked }}</span>
+		</div>
+
+		<!-- 没指定value则绑定的是文本值 -->
+		<div id="app6">
+			<select v-model="selected">
+				<option disabled>请选择</option>
+				<option>A</option>
+				<option>B</option>
+				<option>C</option>
+			</select>
+			<span>Selected: {{ selected }}</span>
+		</div>
+
+		<script>
+			new Vue({
+				el: '#app',
+				data: {
+					message: ''
+				}
+			});
+
+			new Vue({
+				el: '#app2',
+				data: {
+					message: ''
+				}
+			});
+
+			new Vue({
+				el: '#app3',
+				data: {
+					isChecked: false
+				}
+			});
+
+			new Vue({
+				el: '#app4',
+				data: {
+					checkedNames: []
+				}
+			});
+
+			new Vue({
+				el: '#app5',
+				data: {
+					picked: ''
+				}
+			});
+
+			new Vue({
+				el: '#app6',
+				data: {
+					selected: ''
+				}
+			});
+		</script>
+	</body>
+
+</html>
