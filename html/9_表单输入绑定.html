@@ -16,13 +16,14 @@
 		</div>
 
 		<!-- 多行文本 -->
+		<!-- 在文本域插值<textarea>{{text}}</textarea>并不会生效，应用v-model来代替 -->
 		<div id="app2">
 			<span>Multiline message:</span>
 			<p style="white-space: pre-line;">{{message}}</p>
 			<textarea v-model="message" placeholder="add multiple lines"></textarea>
 		</div>
 
-		<!-- 复选框 -->
+		<!-- 单个复选框，绑定到布尔值 -->
 		<div id="app3">
 			<input id="checkbox" type="checkbox" v-model="isChecked" />
 			<label for="checkbox">{{isChecked}}</label>
@@ -51,7 +52,8 @@
 			<span>Picked: {{ picked }}</span>
 		</div>
 
-		<!-- 没指定value则绑定的是文本值 -->
+		<!-- 选择框 -->
+		<!-- 单选时，没指定value则绑定的是文本值 -->
 		<div id="app6">
 			<select v-model="selected">
 				<option disabled>请选择</option>
@@ -60,6 +62,27 @@
 				<option>C</option>
 			</select>
 			<span>Selected: {{ selected }}</span>
+		</div>
+
+		<!-- 多选时(绑定到一个数组) -->
+		<div id="app7">
+			<select v-model="selected" multiple style="width: 100px;">
+				<option disabled>请选择</option>
+				<option>A</option>
+				<option>B</option>
+				<option>C</option>
+			</select>
+			<span>Selected: {{ selected }}</span>
+		</div>
+
+		<!-- 用v-for渲染的动态选项 -->
+		<div id="app8">
+			<select v-model="selected">
+				<option v-for="option in options" v-bind:value="option.value">
+					{{option.text}}
+				</option>
+			</select>
+			<span>Selected : {{selected}}</span>
 		</div>
 
 		<script>
@@ -102,6 +125,33 @@
 				el: '#app6',
 				data: {
 					selected: ''
+				}
+			});
+
+			new Vue({
+				el: '#app7',
+				data: {
+					selected: []
+				}
+			});
+
+			new Vue({
+				el: '#app8',
+				data: {
+					selected: 'A',
+					options: [{
+							text: 'One',
+							value: 'A'
+						},
+						{
+							text: 'Two',
+							value: 'B'
+						},
+						{
+							text: 'Three',
+							value: 'C'
+						}
+					]
 				}
 			});
 		</script>
